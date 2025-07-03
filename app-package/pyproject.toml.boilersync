@@ -1,0 +1,16 @@
+[project]
+name = "$${name_kebab}"
+version = "0.1.0"
+description = ""
+authors = []
+dependencies = [
+    $${% block dependencies %}
+    $${% endblock %}
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.entry-points."web.app_packages"]
+$${name_snake} = "$${name_snake}.package_apps:get_apps"
