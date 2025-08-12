@@ -1,6 +1,0 @@
----
-description: 
-globs: **/views.py
-alwaysApply: false
----
-Prefer using Django viewsets where appropriate.

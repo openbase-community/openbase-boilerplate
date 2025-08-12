@@ -1,6 +1,0 @@
----
-description: 
-globs: **/admin.py
-alwaysApply: false
----
-Unless asked otherwise, do NOT include field names in `admin.py` declarations. That way if we change field names we do not need to change `admin.py`.
