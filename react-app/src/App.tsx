@@ -3,7 +3,12 @@ import {
   AuthChangeRedirector,
   AuthContextProvider,
 } from "openbase-react-shared";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
@@ -13,7 +18,7 @@ import Settings from "./pages/Settings";
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Redirect />} />
+      <Route path="/" element={<Navigate to="/account/login" replace />} />
       <Route
         path="/account/login"
         element={
