@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logout, useAuthDeprecated } from "openbase-react";
+import { logout, useAuthDeprecated } from "openbase-react-shared";
 import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -48,9 +48,6 @@ const UserProfile = () => {
           )}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => navigate("/dashboard")}>
-          Dashboard
-        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigate("/dashboard/settings")}>
           Account Settings
         </DropdownMenuItem>

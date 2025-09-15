@@ -1,5 +1,4 @@
-import DashboardLayout from "@/components/layouts/DashboardLayout";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import DashboardLayout from "@/components/layouts/ExampleLayout";
 import {
   Card,
   CardContent,
@@ -7,21 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  AlertTriangle,
-  CheckCircle,
-  Trash2,
-  User,
-  XCircle,
-} from "lucide-react";
-import { useAuthDeprecated } from "openbase-react";
-import React, { useState } from "react";
+import { User } from "lucide-react";
+import { useAuthDeprecated } from "openbase-react-shared";
+import React from "react";
 
 const Settings: React.FC = () => {
   const { user } = useAuthDeprecated();
-  const [isClearing, setIsClearing] = useState(false);
-  const [clearSuccess, setClearSuccess] = useState(false);
-  const [clearError, setClearError] = useState<string | null>(null);
 
   return (
     <DashboardLayout>
@@ -59,47 +49,6 @@ const Settings: React.FC = () => {
                 </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Data Management Card */}
-        <Card className="border-red-200">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-red-800">
-              <Trash2 className="h-5 w-5" />
-              Data Management
-            </CardTitle>
-            <CardDescription>
-              Permanently delete all your data and conversation history
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <Alert className="border-red-200 bg-red-50">
-              <AlertTriangle className="h-4 w-4 text-red-600" />
-              <AlertDescription className="text-red-800">
-                <strong>Warning:</strong> This will permanently delete all your
-                message history and conversations. This action cannot be undone.
-              </AlertDescription>
-            </Alert>
-
-            {clearSuccess && (
-              <Alert className="border-green-200 bg-green-50">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                <AlertDescription className="text-green-800">
-                  <strong>Success!</strong> Your data has been cleared
-                  successfully.
-                </AlertDescription>
-              </Alert>
-            )}
-
-            {clearError && (
-              <Alert className="border-red-200 bg-red-50">
-                <XCircle className="h-4 w-4 text-red-600" />
-                <AlertDescription className="text-red-800">
-                  <strong>Error:</strong> {clearError}
-                </AlertDescription>
-              </Alert>
-            )}
           </CardContent>
         </Card>
       </div>

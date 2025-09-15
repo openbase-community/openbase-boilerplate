@@ -1,5 +1,3 @@
-import ChatButton from "@/components/ChatButton";
-import NotificationButton from "@/components/NotificationButton";
 import {
   Sidebar,
   SidebarContent,
@@ -13,121 +11,40 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 import UserProfile from "@/components/UserProfile";
-import {
-  Activity,
-  BookOpen,
-  Clipboard,
-  Clock,
-  Database,
-  FileText,
-  Home,
-  HousePlus,
-  PieChart,
-  Search,
-  User,
-  Wallet,
-} from "lucide-react";
-import { useAuthDeprecated } from "openbase-react";
-import React, { useEffect } from "react";
+import { Clipboard, Home, PieChart } from "lucide-react";
+import { useAuthDeprecated } from "openbase-react-shared";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface ExampleDashboardLayoutProps {
   children: React.ReactNode;
 }
 
-const ExampleDashboardLayout: React.FC<ExampleDashboardLayoutProps> = ({ children }) => {
+const ExampleDashboardLayout: React.FC<ExampleDashboardLayoutProps> = ({
+  children,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isLoading } = useAuthDeprecated();
-
-  // Redirect to login if user is not authenticated
-  useEffect(() => {
-    if (!isLoading && !user) {
-      const hostname = window.location.hostname;
-      const isDevelopmentEnvironment =
-        hostname === "localhost" ||
-        hostname.endsWith(".lovable.app") ||
-        hostname.endsWith(".lovable.dev") ||
-        hostname.endsWith(".lovableproject.com");
-
-      if (!isDevelopmentEnvironment) {
-        console.log("Redirecting to login");
-        console.log(hostname);
-        navigate("/login");
-      }
-    }
-  }, [user, isLoading, navigate]);
 
   // Navigation items with their respective paths, icons, and titles
   const navItems = [
     {
       path: "/dashboard",
       icon: Home,
-      title: "Dashboard",
+      title: "Dashboard 1",
     },
     {
-      path: "/dashboard/profile",
-      icon: User,
-      title: "Profile",
-    },
-    {
-      path: "/dashboard/analytics",
+      path: "/dashboard/two",
       icon: PieChart,
-      title: "Analytics",
+      title: "Dashboard 2",
     },
     {
-      path: "/dashboard/projects",
+      path: "/dashboard/three",
       icon: Clipboard,
-      title: "Projects",
-    },
-    {
-      path: "/dashboard/data",
-      icon: Database,
-      title: "Data",
-    },
-    {
-      path: "/dashboard/activity",
-      icon: Activity,
-      title: "Activity",
-    },
-    {
-      path: "/dashboard/search",
-      icon: Search,
-      title: "Search",
-    },
-    {
-      path: "/dashboard/reports",
-      icon: FileText,
-      title: "Reports",
-    },
-    {
-      path: "/dashboard/settings",
-      icon: HousePlus,
-      title: "Settings",
+      title: "Dashboard 3",
     },
   ];
-
-  // Additional items for advanced users
-  const advancedItems = [
-    {
-      path: "/dashboard/resources",
-      icon: BookOpen,
-      title: "Resources",
-    },
-    {
-      path: "/dashboard/timeline",
-      icon: Clock,
-      title: "Timeline",
-    },
-    {
-      path: "/dashboard/wallet",
-      icon: Wallet,
-      title: "Wallet",
-    },
-  ];
-
-  // Check if user has advanced features enabled
-  const hasAdvancedFeatures = user?.settings?.advanced_features || false;
 
   return (
     <SidebarProvider>
@@ -159,29 +76,6 @@ const ExampleDashboardLayout: React.FC<ExampleDashboardLayoutProps> = ({ childre
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
-
-            {/* Advanced section - only show for users with advanced features */}
-            {hasAdvancedFeatures && (
-              <SidebarGroup>
-                <SidebarGroupLabel>Advanced</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {advancedItems.map((item) => (
-                      <SidebarMenuItem key={item.path}>
-                        <SidebarMenuButton
-                          isActive={location.pathname === item.path}
-                          onClick={() => navigate(item.path)}
-                          tooltip={item.title}
-                        >
-                          <item.icon />
-                          <span>{item.title}</span>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-            )}
           </SidebarContent>
         </Sidebar>
 
@@ -194,8 +88,6 @@ const ExampleDashboardLayout: React.FC<ExampleDashboardLayoutProps> = ({ childre
                   : `Welcome back, ${user?.first_name || "User"}`}
               </h2>
               <div className="flex items-center space-x-1">
-                <ChatButton />
-                <NotificationButton />
                 <UserProfile />
               </div>
             </div>
