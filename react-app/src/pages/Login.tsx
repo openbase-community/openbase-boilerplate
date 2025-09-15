@@ -4,7 +4,7 @@ import {
   useConfig,
   useLogin,
   WebAuthnLoginButton,
-} from "openbase-react";
+} from "openbase-react-react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
