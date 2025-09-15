@@ -17,7 +17,7 @@ const Settings: React.FC = () => {
     <DashboardLayout>
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-serif font-light mb-2">Settings</h1>
+          <h1 className="text-3xl font-light mb-2">Settings</h1>
           <p className="text-gray-600">
             Manage your account preferences and data
           </p>

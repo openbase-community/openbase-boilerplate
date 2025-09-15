@@ -71,9 +71,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Instrument Sans", "system-ui", "sans-serif"],
-        serif: ["Joan", "Georgia", "serif"],
-        display: ["Joan", "Georgia", "serif"],
+        display: ["Instrument Sans", "system-ui", "sans-serif"],
       },
       fontWeight: {
         light: "300",

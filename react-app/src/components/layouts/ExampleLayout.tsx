@@ -52,7 +52,7 @@ const ExampleDashboardLayout: React.FC<ExampleDashboardLayoutProps> = ({
         <Sidebar>
           <SidebarHeader className="p-4 border-b">
             <div className="flex items-center justify-start py-2">
-              <h1 className="text-xl font-bold text-gray-900">App Logo</h1>
+              <h1 className="text-xl font-bold text-gray-900">My App</h1>
             </div>
           </SidebarHeader>
 
