@@ -1,3 +1,4 @@
-from django.urls import path, include
+from __future__ import annotations
 
+# All URLs will be prefixed with $${api_prefix}
 urlpatterns = []
