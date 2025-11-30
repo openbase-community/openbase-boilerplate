@@ -7,11 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { User } from "lucide-react";
-import { useAuthDeprecated } from "openbase-react-shared";
+import { useFullUser } from "openbase-react-shared";
 import React from "react";
 
 const Settings: React.FC = () => {
-  const { user } = useAuthDeprecated();
+  const { user } = useFullUser();
 
   return (
     <DashboardLayout>

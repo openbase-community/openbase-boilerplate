@@ -8,11 +8,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { logout, useAuthDeprecated } from "openbase-react-shared";
+import { logout, useFullUser } from "openbase-react-shared";
 import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
   const navigate = useNavigate();
-  const { user, isLoading } = useAuthDeprecated();
+  const { user, isLoading } = useFullUser();
 
   // Get initials for avatar fallback
   const getInitials = () => {

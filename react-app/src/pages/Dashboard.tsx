@@ -1,8 +1,8 @@
 import DashboardLayout from "@/components/layouts/ExampleLayout";
-import { useAuthDeprecated } from "openbase-react-shared";
+import { useFullUser } from "openbase-react-shared";
 
 const Dashboard = () => {
-  const { user, isLoading } = useAuthDeprecated();
+  const { user, isLoading } = useFullUser();
 
   return (
     <DashboardLayout>

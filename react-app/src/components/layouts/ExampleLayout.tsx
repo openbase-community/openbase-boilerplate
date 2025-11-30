@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sidebar";
 import UserProfile from "@/components/UserProfile";
 import { Clipboard, Home, PieChart } from "lucide-react";
-import { useAuthDeprecated } from "openbase-react-shared";
+import { useFullUser } from "openbase-react-shared";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -25,7 +25,7 @@ const ExampleDashboardLayout: React.FC<ExampleDashboardLayoutProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, isLoading } = useAuthDeprecated();
+  const { user, isLoading } = useFullUser();
 
   // Navigation items with their respective paths, icons, and titles
   const navItems = [
