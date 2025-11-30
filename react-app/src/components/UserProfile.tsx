@@ -32,7 +32,7 @@ const UserProfile = () => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56">
+      <DropdownMenuContent align="end" sideOffset={12} className="w-56">
         <DropdownMenuLabel>
           {isLoading ? (
             <div className="flex flex-col space-y-1">
