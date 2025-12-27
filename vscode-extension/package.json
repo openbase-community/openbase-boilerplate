@@ -1,0 +1,44 @@
+{
+  "name": "$${name_kebab}",
+  "displayName": "$${name_pretty}",
+  "description": "$${vscode_extension_description}",
+  "version": "0.0.1",
+  "publisher": "$${vscode_publisher}",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/$${github_user}/$${name_kebab}-extension"
+  },
+  "icon": "icon.png",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.99.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {},
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "install-extension": "vsce package --allow-missing-repository && cursor --install-extension $${name_kebab}-0.0.1.vsix"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.99.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
