@@ -1,63 +1,68 @@
-# Boilerplate Template System
+# Boilersync Templates Directory
 
-This directory contains project templates that use variable interpolation to generate customized codebases.
+This directory contains project templates for generating new codebases with boilersync.
 
-## Template Variable Syntax
+## Creating a New Template
 
-### Content Interpolation
+To create a new boilersync template, create a template directory here with your template files.  There is no required structure, but the files in the template directory can contain interpolation slots using the template syntax explained in the following section. 
 
-Use `$${variable_name}` for variable substitution within file contents:
+```
+./my-template/
+├── ... (template files) ...
+├── README.starter.md
+└── template.json          # Optional, for inheritance
+```
+
+## Template Syntax
+
+Use `$${variable_name}` for variable substitution in file contents:
 
 ```python
 from $${name_snake}.cli import main
 
 class $${name_pascal}Config(AppConfig):
-    """$${name_pretty}"""
+    """$${name_pretty} - $${description}"""
 ```
 
-### Filename Templates
+Common variables:
 
-Use `NAME_SNAKE` or similar variables in directory names to create a package directory that will be renamed:
+- `$${name_snake}`, `$${name_kebab}`, `$${name_pascal}`, `$${name_pretty}` - Project name in various formats
+- `$${author_name}`, `$${author_email}`, `$${author_github_name}` - Author info
+- `$${description}` - Project description
+- `$${python_version}` - Python version requirement
 
+Browse existing templates for other available variables before adding a new one - an existing template may already include the variable you are looking for.  If it does not exist already, you may simply add a new one by using it; boilersync will adapt, and there is no need to declare it elsewhere.
+
+## Variables in File and Folder Names
+
+To use a variable in a filename or directory name, convert it to ALL CAPS:
+
+| Variable | Filename Form |
+|----------|---------------|
+| `$${name_snake}` | `NAME_SNAKE` |
+| `$${name_kebab}` | `NAME_KEBAB` |
+
+Example:
 ```
-/cli/NAME_SNAKE/__init__.py    →    /my_project/__init__.py
-/cli/NAME_SNAKE/cli.starter.py →    /my_project/cli.py
+/cli/NAME_SNAKE/__init__.py  →  /my_project/__init__.py
 ```
 
 ## File Extensions
 
-### `.starter` Files
+### `.starter`
 
-Template files that contain `$${variable}` interpolation. The `.starter` extension is removed during processing:
+Template files with `.starter` in the extension are included in the initial boilersync generation but are **not kept in sync** with the template afterwards. Use this for files the user is expected to modify:
 
-- `cli.starter.py` → `cli.py`
-- `README.starter.md` → `README.md`
-- `extension.starter.ts` → `extension.ts`
+- `cli.starter.py` → `cli.py` (generated once, then user-owned)
+- `README.starter.md` → `README.md` (user is expected to add more details to the README later)
 
-### `.boilersync` Extension (Optional)
+Files **without** `.starter` remain linked to the template. When you run `boilersync push`, modifications to these files can update the template.
 
-Adding `.boilersync` to any file prevents auto-formatting from corrupting template syntax. This is optional and can be used on any file type:
+### `.boilersync`
 
-- `pyproject.toml.boilersync` - Prevents formatters from breaking `$${variables}`
-- `config.json.boilersync` - Preserves template blocks in JSON
+Adding `.boilersync` to any filename prevents auto-formatters from corrupting template syntax. The extension is stripped during processing:
 
-The extension is stripped during template processing.
-
-## Jinja2-Style Blocks
-
-Templates support block inheritance for composable templates:
-
-```toml
-$${% block scripts %}
-$${ super() }
-$${cli_command} = "$${name_snake}.cli:main"
-$${% endblock %}
-```
-
-Features:
-- `$${% block name %}...$${% endblock %}` - Define overridable blocks
-- `$${ super() }` - Include parent block content
-- `$${% if condition %}...$${% endif %}` - Conditional content
+- `pyproject.toml.boilersync` → `pyproject.toml`
 
 ## Template Inheritance
 
@@ -69,91 +74,19 @@ Use `template.json` to extend another template:
 }
 ```
 
-Child templates inherit all files from the parent and can override specific blocks in `.boilersync` files.
+Child templates inherit all files from the parent.
 
-## Common Template Variables
+### Block Overrides
 
-### Name Transformations
+Templates support Jinja2-style blocks for composable inheritance:
 
-| Variable | Format | Example |
-|----------|--------|---------|
-| `$${name_snake}` | snake_case | `my_project` |
-| `$${name_kebab}` | kebab-case | `my-project` |
-| `$${name_pascal}` | PascalCase | `MyProject` |
-| `$${name_pretty}` | Human readable | `My Project` |
+```toml
+$${% block scripts %}
+$${ super() }
+$${cli_command} = "$${name_snake}.cli:main"
+$${% endblock %}
+```
 
-### Author Information
-
-| Variable | Description |
-|----------|-------------|
-| `$${author_name}` | Full name |
-| `$${author_email}` | Email address |
-| `$${author_github_name}` | GitHub username |
-| `$${github_user}` | GitHub username (alias) |
-
-### Project Metadata
-
-| Variable | Description |
-|----------|-------------|
-| `$${description}` | Project description |
-| `$${marketing_description}` | Marketing/display description |
-| `$${python_version}` | Python version (e.g., "3.10") |
-| `$${python_version_ruff}` | Python version for Ruff linter |
-
-### Django-Specific
-
-| Variable | Description |
-|----------|-------------|
-| `$${api_prefix}` | API URL prefix |
-| `$${parent_package_name}` | Parent package namespace |
-| `$${apps}` | Django app configurations |
-
-### CLI-Specific
-
-| Variable | Description |
-|----------|-------------|
-| `$${cli_command}` | CLI entry point command name |
-| `$${homebrew_tap_location}` | Homebrew tap location |
-
-### VS Code Extension
-
-| Variable | Description |
-|----------|-------------|
-| `$${vscode_extension_description}` | Extension description |
-| `$${vscode_publisher}` | Extension publisher name |
-
-## Creating a New Template
-
-1. **Create the template directory**:
-   ```
-   /boilerplate/my-template/
-   ```
-
-2. **Add template files** using `.starter` extension for files with variables:
-   ```
-   my-template/
-   ├── NAME_SNAKE/
-   │   ├── __init__.py
-   │   └── main.starter.py
-   ├── pyproject.toml              # Add .boilersync if formatters corrupt it
-   ├── README.starter.md
-   └── template.json               # If extending another template
-   ```
-
-3. **Use variable interpolation** in file contents:
-   ```python
-   """$${name_pretty} - $${description}"""
-   
-   __version__ = "0.1.0"
-   __author__ = "$${author_name}"
-   ```
-
-4. **Optional: Extend an existing template** via `template.json`:
-   ```json
-   {
-     "extends": "pip-package"
-   }
-   ```
-
-5. **Override blocks** in `.boilersync` files to customize inherited content.
-
+- `$${% block name %}...$${% endblock %}` - Define overridable blocks in the parent template.
+- `$${ super() }` - Include parent block content
+- `$${% if condition %}...$${% endif %}` - Conditional content
